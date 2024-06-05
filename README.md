@@ -54,6 +54,11 @@ ax.plot('Birth_year', 'Mean_lh', data=lefthanded_data) # plot 'Mean_lh' vs. 'Bir
 ax.set_xlabel('Birth_year') # set the x label for the plot
 ax.set_ylabel('Mean_LH') # set the y label for the plot
 ```
+
+Text(0, 0.5, 'Mean_LH')
+![](vertopal_bceeee3073054bb68d783eeddc1477b5/8429d0e4d83fe8d16ca040e9d48e6d2130c8c9bb.png)
+
+
 ## 3. Applying Bayes\' rule {#3-applying-bayes-rule}
 
 <p>The probability of dying at a certain age given that you're left-handed is <strong>not</strong> equal to the probability of being left-handed given that you died at a certain age. This inequality is why we need <strong>Bayes' theorem</strong>, a statement about conditional probability which allows us to update our beliefs after seeing evidence. </p>
@@ -87,6 +92,9 @@ def P_lh_given_A(ages_of_death, study_year = 1990):
     
     return P_return
 ```
+
+
+
 ## 4. When do people normally die? {#4-when-do-people-normally-die}
 
 <p>To estimate the probability of living to an age A, we can use data that gives the number of people who died in a given year and how old they were to create a distribution of ages of death. If we normalize the numbers to the total number of people who died, we can think of this data as a probability distribution that gives the probability of dying at age A. The data we'll use for this is from the entire US for the year 1999 - the closest I could find for the time range we're interested in. </p>
@@ -109,6 +117,11 @@ ax.plot('Age', 'Both Sexes', data = death_distribution_data, marker='o') # plot 
 ax.set_xlabel('Age') 
 ax.set_ylabel('Both Sexes')
 ```
+Text(0, 0.5, 'Both Sexes')
+
+![](vertopal_bceeee3073054bb68d783eeddc1477b5/3794c284b4ed11b2e61bdd1b11f03a8f9f8d4de3.png)
+
+
 
 ## 5. The overall probability of left-handedness {#5-the-overall-probability-of-left-handedness}
 <p>In the previous code block we loaded data to give us P(A), and now we need P(LH). P(LH) is the probability that a person who died in our particular study year is left-handed, assuming we know nothing else about them. This is the average left-handedness in the population of deceased people, and we can calculate it by summing up all of the left-handedness probabilities for each age, weighted with the number of deceased people at each age, then divided by the total number of deceased people to get a probability. In equation form, this is what we're calculating, where N(A) is the number of people who died at age A (given by the dataframe <code>death_distribution_data</code>):</p>
@@ -126,6 +139,9 @@ def P_lh(death_distribution_data, study_year = 1990): # sum over P_lh for each a
 
 print(P_lh(death_distribution_data))
 ```
+0.07766387615350638
+
+
 ## 6. Putting it all together: dying while left-handed (i) {#6-putting-it-all-together-dying-while-left-handed-i}
 <p>Now we have the means of calculating all three quantities we need: P(A), P(LH), and P(LH | A). We can combine all three using Bayes' rule to get P(A | LH), the probability of being age A at death (in the study year) given that you're left-handed. To make this answer meaningful, though, we also want to compare it to P(A | RH), the probability of being age A at death given that you're right-handed. </p>
 <p>We're calculating the following quantity twice, once for left-handers and once for right-handers.</p>
@@ -174,6 +190,10 @@ ax.legend() # add a legend
 ax.set_xlabel("Age at death")
 ax.set_ylabel(r"Probability of being age A at death")
 ```
+Text(0, 0.5, 'Probability of being age A at death')
+![](vertopal_bceeee3073054bb68d783eeddc1477b5/1bbfb35fa2b1eca942d11792af2cda48694d6cf0.png)
+
+
 ## 9. Moment of truth: age of left and right-handers at death {#9-moment-of-truth-age-of-left-and-right-handers-at-death}
 
 <p>Finally, let's compare our results with the original study that found that left-handed people were nine years younger at death on average. We can do this by calculating the mean of these probability distributions in the same way we calculated P(LH) earlier, weighting the probability distribution by age and summing over the result.</p>
